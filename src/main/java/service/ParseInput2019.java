@@ -36,7 +36,7 @@ public class ParseInput2019 {
         List<Slide> slides = new ArrayList<>();
         Photo lastPhoto = null;
         for(Photo photo : photos) {
-            if(photo.isOrientation()) {
+            if(photo.isHorizontal()) {
                 slides.add(new Slide(photo));
             } else {
                 if(lastPhoto == null) {

@@ -7,12 +7,12 @@ import java.util.Set;
 public class Photo {
 
     private long id;
-    private boolean orientation; // T -> H; F -> V
+    private boolean isHorizontal; // T -> H; F -> V
     private Set<String> tags;
 
     public Photo(long id, boolean orientation, Set<String> tags) {
         this.id = id;
-        this.orientation = orientation;
+        this.isHorizontal = orientation;
         this.tags = tags;
     }
 
@@ -24,12 +24,12 @@ public class Photo {
         this.id = id;
     }
 
-    public boolean isOrientation() {
-        return orientation;
+    public boolean isHorizontal() {
+        return isHorizontal;
     }
 
-    public void setOrientation(boolean orientation) {
-        this.orientation = orientation;
+    public void setHorizontal(boolean horizontal) {
+        this.isHorizontal = horizontal;
     }
 
     public Set<String> getTags() {
@@ -105,6 +105,6 @@ public class Photo {
 
     @Override
     public Photo clone() {
-        return new Photo(this.id, this.orientation, new HashSet<>(this.tags));
+        return new Photo(this.id, this.isHorizontal, new HashSet<>(this.tags));
     }
 }

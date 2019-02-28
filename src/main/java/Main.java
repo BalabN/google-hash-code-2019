@@ -13,9 +13,13 @@ public class Main {
         }
         String fileName = args[0];
         List<Photo> photos = ParseInput2019.getPhotosFromFile(fileName);
+        List<Photo> bestPhotos = Slideshow.recursiveSearch(photos.subList(1, photos.size()), photos.get(0));
+
 //        Slideshow slideshow = ParseInput2019.getSlideshowFromFile(fileName);
-        Slideshow slideshow = ParseInput2019.getSlideshow(photos);
-        System.out.println("Score: " + slideshow.calculateScore());
-        System.out.println("Slideshow:\n" + slideshow.toString());
+//        Slideshow slideshow = ParseInput2019.getSlideshow(photos);
+        Slideshow slideshow = ParseInput2019.getSlideshow(bestPhotos);
+//        System.out.println("Score: " + slideshow.calculateScore());
+//        System.out.println("Slideshow:\n" + slideshow.toString());
+        System.out.println(slideshow.toString());
     }
 }

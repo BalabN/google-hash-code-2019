@@ -45,9 +45,9 @@ public class Slideshow {
         return new Slideshow(slides);
     }
 
-    public Photo getBestMatch(List<Photo> photos, Photo photo){
+    public static Photo getBestMatch(List<Photo> photos, Photo photo){
 
-        int score= 0;
+        int score= -1;
         Photo bestMatch=null;
         for (int i = 0; i < photos.size()-1; i++) {
             int tmp=photo.getScore(photos.get(i));
@@ -58,5 +58,34 @@ public class Slideshow {
             }
         }
         return bestMatch;
+    }
+
+//    public List<Photo> getSlideList(List<Photo> inputList) {
+//        List<Photo> orderedPhotos = new ArrayList<>();
+//        for (Photo singlePhoto : inputList) {
+//            //get only horizontal pictures first
+//            if (singlePhoto.isHorizontal()){
+//                Photo matchingPhoto = getBestMatch(inputList, singlePhoto);
+//                orderedPhotos.add(singlePhoto)
+//            }
+//        }
+//        return slideList;
+//    }
+
+    public static List<Photo> recursiveSearch(List<Photo> photos, Photo photo){
+        if (photos.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<Photo> bestList = new ArrayList<>();
+        bestList.add(photo);
+//        for (Photo currentPhoto : photos){
+//            Photo bestMatch = getBestMatch(photos, bestList.get(bestList.size()-1));
+//            recursiveSearch(photos.subList(1, photos.size()), )
+//        }
+        Photo bestMatch = getBestMatch(photos, photo);
+        List<Photo> bestMatches = recursiveSearch(photos.subList(1, photos.size()), bestMatch);
+        bestList.addAll(new ArrayList<>(bestMatches));
+        return bestList;
+
     }
 }

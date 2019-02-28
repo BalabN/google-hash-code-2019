@@ -12,9 +12,18 @@ public class Photo {
     private int id;
     private Orientation orientation;
     private List<String> tags;
+    private int numOfTags;
 
     public Orientation getOrientation(){
         return orientation;
+    }
+
+    public int getNumOfTags() {
+        return numOfTags;
+    }
+
+    public void setNumOfTags(int numOfTags) {
+        this.numOfTags = numOfTags;
     }
 
     public int getId(){

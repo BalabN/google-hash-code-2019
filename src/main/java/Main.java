@@ -27,9 +27,10 @@ public class Main {
         }
         String fileName = args[0];
 
-
-        ArrayList<Photo> photos = new ArrayList<>(); //parse
+        List<Photo> photos = new ArrayList<>(); //parse
         ArrayList<Slide> slides = new ArrayList<>(); //parse
+
+        photos = ParseInput.parseInput(fileName);
         // go through all vertical photos and make pairs with most different tags together
         // add them as slides
 

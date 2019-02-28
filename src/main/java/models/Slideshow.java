@@ -1,13 +1,12 @@
 package models;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Slideshow {
 
-    private ArrayList slideList;
+    private List slideList;
     private int score;
 
-    public ArrayList getSlideList(){
+    public List getSlideList(){
         return slideList;
     }
     public int getScore(){
@@ -18,7 +17,7 @@ public class Slideshow {
         this.score = score;
     }
 
-    public void setSlideList(ArrayList slideList){
+    public void setSlideList(List slideList){
         this.slideList = slideList;
     }
 

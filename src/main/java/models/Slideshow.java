@@ -14,7 +14,7 @@ public class Slideshow {
     public long calculateScore() {
 
         int score = 0;
-        for (int i = 0; i < slideList.size()-1; i++) {
+        for (int i = 0; i < slideList.size() - 1; i++) {
 
             Slide slide1 = slideList.get(i);
             Slide slide2 = slideList.get(i+1);

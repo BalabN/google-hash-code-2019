@@ -1,5 +1,3 @@
-import models.Car;
-import models.Ride;
 import models.Slideshow;
 import service.ParseInput2019;
 
@@ -12,6 +10,7 @@ public class Main {
         }
         String fileName = args[0];
         Slideshow slideshow = ParseInput2019.getSlideshow(fileName);
-        System.out.println(slideshow.toString());
+        System.out.println("Score: " + slideshow.calculateScore());
+        System.out.println("Slideshow:\n" + slideshow.toString());
     }
 }

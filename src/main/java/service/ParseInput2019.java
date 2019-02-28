@@ -21,7 +21,7 @@ public class ParseInput2019 {
             for(int i = 0; i < N; i++) {
                 String[] line = br.readLine().split(" ");
                 boolean orientation = line[0].equals("H");
-                HashSet<String> tags = new HashSet<>(Arrays.asList(line).subList(1, line.length));
+                HashSet<String> tags = new HashSet<>(Arrays.asList(line).subList(2, line.length));
                 photos.add(new Photo(i, orientation, tags));
             }
             return photos;
@@ -35,17 +35,16 @@ public class ParseInput2019 {
     public static Slideshow getSlideshow(String fileName) {
         List<Photo> photos = getPhotosFromFile(fileName);
         List<Slide> slides = new ArrayList<>();
-        List<Photo> lastPhoto = new ArrayList<>();
+        Photo lastPhoto = null;
         for(Photo photo : photos) {
             if(photo.isOrientation()) {
                 slides.add(new Slide(photo));
             } else {
-                if(!lastPhoto.isEmpty()) {
-                    lastPhoto.add(photo);
-                    slides.add(new Slide(lastPhoto));
+                if(lastPhoto == null) {
+                    lastPhoto = photo;
                 } else {
-                    lastPhoto = new ArrayList<>();
-                    lastPhoto.add(photo);
+                    slides.add(new Slide(lastPhoto, photo));
+                    lastPhoto = null;
                 }
             }
         }

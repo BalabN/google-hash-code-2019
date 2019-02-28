@@ -31,4 +31,18 @@ public class Slide {
         }
         return toString.toString();
     }
+
+    public Set<String> getCommonTags(Slide otherSlide){
+        Set<String> Tags1 = this.tags;
+        Set<String> Tags2 = otherSlide.tags;
+        Tags1.retainAll(Tags2);
+        return Tags1;
+    }
+
+    public Set<String> getUniqueTags(Slide otherSlide){
+        Set<String> Tags1 = this.tags;
+        Set<String> Tags2 = otherSlide.tags;
+        Tags1.removeAll(Tags2);
+        return Tags1;
+    }
 }

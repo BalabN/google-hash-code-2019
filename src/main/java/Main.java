@@ -13,8 +13,6 @@ public class Main {
         }
         String fileName = args[0];
 
-        String filePath = "C:\\Users\\Lenovo\\Documents\\google-hash-code-2019\\result.txt";
-
         List<Photo> photos = ParseInput.parseInput(fileName);
         List<Photo> usedPhotos = new ArrayList<>();
 
@@ -47,7 +45,7 @@ public class Main {
             currentSlide = pair;
         }
 
-        ParseInput.printOutput(slideshowTest, filePath);
+        System.out.println(ParseInput.printOutput(slideshowTest));
 
         System.out.println("end");
         // }

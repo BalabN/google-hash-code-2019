@@ -32,8 +32,7 @@ public class ParseInput2019 {
         return new ArrayList<>();
     }
 
-    public static Slideshow getSlideshow(String fileName) {
-        List<Photo> photos = getPhotosFromFile(fileName);
+    public static Slideshow getSlideshow(List<Photo> photos) {
         List<Slide> slides = new ArrayList<>();
         Photo lastPhoto = null;
         for(Photo photo : photos) {
@@ -50,4 +49,10 @@ public class ParseInput2019 {
         }
         return new Slideshow(slides);
     }
+
+
+    public static Slideshow getSlideshowFromFile(String fileName) {
+        return getSlideshow(getPhotosFromFile(fileName));
+    }
+
 }

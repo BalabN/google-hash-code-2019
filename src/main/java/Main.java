@@ -1,5 +1,8 @@
+import models.Photo;
 import models.Slideshow;
 import service.ParseInput2019;
+
+import java.util.List;
 
 public class Main {
 
@@ -9,7 +12,9 @@ public class Main {
             throw new Exception("Invalid number of input args");
         }
         String fileName = args[0];
-        Slideshow slideshow = ParseInput2019.getSlideshow(fileName);
+        List<Photo> photos = ParseInput2019.getPhotosFromFile(fileName);
+//        Slideshow slideshow = ParseInput2019.getSlideshowFromFile(fileName);
+        Slideshow slideshow = ParseInput2019.getSlideshow(photos);
         System.out.println("Score: " + slideshow.calculateScore());
         System.out.println("Slideshow:\n" + slideshow.toString());
     }

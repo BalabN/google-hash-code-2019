@@ -44,4 +44,19 @@ public class Slideshow {
         }
         return new Slideshow(slides);
     }
+
+    public Photo getBestMatch(List<Photo> photos, Photo photo){
+
+        int score= 0;
+        Photo bestMatch=null;
+        for (int i = 0; i < photos.size()-1; i++) {
+            int tmp=photo.getScore(photos.get(i));
+            if (score<tmp)
+            {
+                score=tmp;
+                bestMatch=photos.get(i);
+            }
+        }
+        return bestMatch;
+    }
 }

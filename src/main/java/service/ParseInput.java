@@ -1,6 +1,7 @@
 package service;
 
 import models.Photo;
+import models.Slide;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -52,6 +53,36 @@ public class ParseInput {
         }
         return photos;
     }
+
+    public static String printOutput(List<Slide> slides) throws IOException {
+        // Dobim listo slidov ki vsebuje
+        // Koliko slidov je
+        // Koliko slik ima prvi slide
+        // Koliko slik ima drugi slide
+        // Koliko slik ima tretji slide
+
+        String content = Integer.toString(slides.size());
+        content = content.concat("\n");
+
+
+        // JST DOBIM 1 SLIDE
+        System.out.println("List of Slides" + slides);
+        for(int i = 0; i < slides.size(); i++){
+            Slide slide = slides.get(i);
+            int numPhotos = slide.getPhotos().size();
+            for (int j = 0; j < numPhotos; j++) {
+                content = content.concat(String.valueOf(slide.getPhotos().get(j).getId()));
+                content = content.concat(" ");
+            }
+            if (i != slides.size() - 1) {
+                content = content.concat("\n");
+            }
+        }
+        return content;
+    }
+
+
+
 
 
 }

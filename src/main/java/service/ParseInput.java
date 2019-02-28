@@ -20,6 +20,7 @@ public class ParseInput {
         String[] firstLine = content.get(0).split(" ");
 
         int numPhotos = Integer.parseInt(firstLine[0]);
+        int id = 0;
         List<Photo> photos = new ArrayList<>();
         Iterator<String> iterator = content.iterator();
         iterator.next();
@@ -45,7 +46,9 @@ public class ParseInput {
 
             }
             photo.setTags(tags);
+            photo.setId(id);
             photos.add(photo);
+            id++;
         }
         return photos;
     }

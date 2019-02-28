@@ -8,9 +8,9 @@ public class Main {
     public static int GetCommonTags(Photo photo1, Photo photo2) {
         int commonTags = 0;
         for (int i = 0; i < photo1.getTags().size(); i++) {
-            System.out.println("1:"+photo1.getTags().get(i));
+            //System.out.println("1:" + photo1.getTags().get(i));
             for (int j = 0; j < photo2.getTags().size(); j++) {
-                System.out.println("1:"+photo2.getTags().get(j));
+                //System.out.println("2:" + photo2.getTags().get(j));
                 if (photo1.getTags().get(i).compareTo(photo2.getTags().get(j)) == 0) {
                     System.out.println("common");
                     commonTags++;
@@ -22,23 +22,28 @@ public class Main {
         return commonTags;
     }
 
-    public static Photo GetBestVerticalPair(Photo photo,  List<Photo> photosTMP) {
+    public static Photo GetBestVerticalPair(Photo photo, List<Photo> photosTMP) {
         int maxtogether = 0;
         Photo bestPairPhoto = new Photo();
         for (Photo photo1 : photosTMP) {
-            int common = GetCommonTags(photo, photo1);
-            int together = photo.getTags().size() + photo1.getTags().size() - common;
+            if (photo1.getOrientation() == Photo.Orientation.VERTICAL) {
 
-            if (together > maxtogether) {
-                bestPairPhoto = photo1;
+                int common = GetCommonTags(photo, photo1);
+                int together = photo.getTags().size() + photo1.getTags().size() - common;
+
+                if (together > maxtogether) {
+                    bestPairPhoto = photo1;
+                    maxtogether = together;
+                }
+
+                System.out.println("common: " + common);
+//            System.out.println("photo2 tags: "+photo.getTags().size());
+//            System.out.println("photo1 tags: "+photo1.getTags().size());
+//            System.out.println("common: "+common);
+               // System.out.println("interest: " + Math.min(photo.getTags().size() - common, Math.min(common, photo1.getTags().size() - common)));
             }
-
-            System.out.println("photo2 tags: "+photo.getTags().size());
-            System.out.println("photo1 tags: "+photo1.getTags().size());
-            System.out.println("common: "+common);
-            System.out.println("interest: " + Math.min(photo.getTags().size() - common,Math.min(common,photo1.getTags().size()- common)));
         }
-
+        System.out.println("maxtogether: " + maxtogether);
        // photosTMP.remove(bestPairPhoto);
 
         return bestPairPhoto;
@@ -63,8 +68,6 @@ public class Main {
         Photo photo;
         for (int i = 0; i < photos.size(); i++) {
             photo = photos.get(i);
-            System.out.println("i:"+i);
-            System.out.println("photo num:"+photo.getNumOfTags());
             if (photo.getOrientation() == Photo.Orientation.HORIZONTAL) {
                 slide = new Slide(/*photo*/);
             } else {
@@ -72,8 +75,9 @@ public class Main {
                 // minimal common, max together
                 Photo bestPair = GetBestVerticalPair(photo, photos);
 
-
-
+                int common = GetCommonTags(photo, bestPair);
+                int together = photo.getTags().size() + bestPair.getTags().size() - common;
+                System.out.println("together: " + together);
                 slide = new Slide(/*photo*/);
             }
             slides.add(slide);

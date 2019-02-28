@@ -29,7 +29,7 @@ public class Slide {
     }
 
     public List<String> getTags() {
-        List<String> tags = photo1.getTags();
+        List<String> tags = new ArrayList<>(photo1.getTags());
         if (photo2 == null) {
             return photo1.getTags();
         }

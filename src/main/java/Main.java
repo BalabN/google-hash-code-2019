@@ -33,9 +33,10 @@ public class Main {
         while (!finish) {
             System.out.println("slides:" + slides.size());
             System.out.println("usedSlides:" + usedSlides.size());
-            if (usedSlides.size() == slides.size())
+            if ((usedSlides.size() == slides.size()) || usedSlides.size() == 909)
                 break;
             // for (int i = 0; i < slides.size(); i++){
+            System.out.println("a");
             Slide pair = SlideshowGenerator.GetBestSlidePair(currentSlide, slides, usedSlides);
 
             System.out.println("ea");

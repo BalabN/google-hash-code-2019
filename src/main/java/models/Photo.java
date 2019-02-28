@@ -81,6 +81,28 @@ public class Photo {
         return currentMaximumCommonTagCount;
     }
 
+    public Set<String> getCommonTags(Photo otherPhoto){
+        Set<String> Tags1 = new HashSet<>(this.tags);
+        Set<String> Tags2 = new HashSet<>(otherPhoto.tags);
+        Tags1.retainAll(Tags2);
+        return Tags1;
+    }
+
+    public Set<String> getUniqueTags(Photo otherPhoto){
+        Set<String> Tags1 = new HashSet<>(this.tags);
+        Set<String> Tags2 = new HashSet<>(otherPhoto.tags);
+        Tags1.removeAll(Tags2);
+        return Tags1;
+    }
+
+
+    public int getScore(Photo other) {
+        int common = this.getCommonTags(other).size();
+        int diffFirst = this.getUniqueTags(other).size();
+        int diffSecond = other.getUniqueTags(this).size();
+        return Math.min(common, Math.min(diffFirst, diffSecond));
+    }
+
     @Override
     public Photo clone() {
         return new Photo(this.id, this.orientation, new HashSet<>(this.tags));

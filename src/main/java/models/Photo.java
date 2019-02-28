@@ -41,4 +41,9 @@ public class Photo {
     public boolean addTag(String tag) {
         return this.tags.add(tag);
     }
+
+    @Override
+    public String toString() {
+        return Long.toString(id);
+    }
 }

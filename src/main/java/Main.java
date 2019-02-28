@@ -33,13 +33,11 @@ public class Main {
         while (!finish) {
             System.out.println("slides:" + slides.size());
             System.out.println("usedSlides:" + usedSlides.size());
-            if ((usedSlides.size() == slides.size()) || usedSlides.size() == 909)
+            if ((usedSlides.size() == slides.size()) || usedSlides.size() == 690)
                 break;
             // for (int i = 0; i < slides.size(); i++){
-            System.out.println("a");
             Slide pair = SlideshowGenerator.GetBestSlidePair(currentSlide, slides, usedSlides);
 
-            System.out.println("ea");
             usedSlides.add(pair);
             slideshowTest.add(pair);
             currentSlide = pair;
@@ -47,7 +45,6 @@ public class Main {
 
         System.out.println(ParseInput.printOutput(slideshowTest));
 
-        System.out.println("end");
         // }
     }
 // go through all slides and search for best pairs for every image

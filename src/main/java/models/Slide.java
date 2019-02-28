@@ -9,8 +9,10 @@ public class Slide {
     private Photo photo1;
     private Photo photo2;
     private Photo.Orientation orientation;
-    private List<String> tags;
+
     private int numOfTags;
+
+    public Slide(){}
 
     public Slide(int _id, Photo _photo1){
         id =_id;
@@ -27,18 +29,16 @@ public class Slide {
     }
 
     public List<String> getTags() {
+        List<String> tags = photo1.getTags();
         if (photo2 == null) {
             return photo1.getTags();
         }
 
-        tags = photo1.getTags();
         tags.addAll(photo2.getTags());
         return tags;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
+
 
     public int getId() {
         return id;

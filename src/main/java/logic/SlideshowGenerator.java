@@ -24,18 +24,21 @@ public class SlideshowGenerator {
             System.out.println(photo.getId());
             if (photo.getOrientation() == Photo.Orientation.HORIZONTAL) {
                 slide = new Slide(slideId, photo);
-                slide.setTags(photo.getTags());
+                System.out.println("slideId: " + slide.getId());
+                System.out.println("slideId size: " + slide.getTags().size());
                 slide.setNumOfTags(photo.getNumOfTags());
+                System.out.println("setNumOfTags: " + slide.getNumOfTags());
                 slideId++;
             } else {
                 //find most different pair to this vertical
                 // minimal common, max together
-                Photo bestPair = GetBestVerticalPair(photo, photos, usedPhotos,true); // boolean leastCommon if true search for least common else most common
+                Photo bestPair = GetBestVerticalPair(photo, photos, usedPhotos, true); // boolean leastCommon if true search for least common else most common
 
                 int common = GetCommonTags(photo, bestPair);
                 int together = photo.getTags().size() + bestPair.getTags().size() - common;
                 System.out.println("together: " + together);
                 slide = new Slide(slideId, photo,bestPair);
+
                 slide.setNumOfTags(photo.getNumOfTags());
                 slideId++;
                 usedPhotos.add(bestPair);
@@ -65,10 +68,14 @@ public class SlideshowGenerator {
 
     public static int GetCommonTagsSlides(Slide slide1, Slide slide2) {
         int commonTags = 0;
-        for (int i = 0; i < slide1.getTags().size(); i++) {
-            for (int j = 0; j < slide2.getTags().size(); j++) {
-                if (slide1.getTags().get(i).compareTo(slide2.getTags().get(j)) == 0) {
-                    System.out.println("common");
+
+        int slides1 = slide1.getTags().size();
+        int slides2 = slide2.getTags().size();
+
+        for (int i = 0; i < slides1; i++) {
+            for (int j = 0; j < slides2; j++) {
+                if (slide1.getTags().get(i).equals(slide2.getTags().get(j))) {
+                    System.out.println("slide common");
                     commonTags++;
                     break;
                 }
@@ -90,13 +97,12 @@ public class SlideshowGenerator {
                 int common = GetCommonTags(photo, photo1);
                 int together = photo.getTags().size() + photo1.getTags().size() - common;
 
-                if (leastCommon){
+                if (leastCommon) {
                     if (together > maxtogether) {
                         bestPairPhoto = photo1;
                         maxtogether = together;
                     }
-                }
-                else {
+                } else {
                     if (common > maxCommon) {
                         bestPairPhoto = photo1;
                         maxCommon = common;
@@ -114,6 +120,28 @@ public class SlideshowGenerator {
         // photosTMP.remove(bestPairPhoto);
 
         return bestPairPhoto;
+    }
+
+    public static Slide GetBestSlidePair(Slide slide, List<Slide> slides, List<Slide> usedSlides) {
+        int maxInterest = 0;
+        Slide bestPairSlide = new Slide();
+        for (Slide slide1 : slides) {
+            if (usedSlides.contains(slide1))
+                continue;
+
+            int common = GetCommonTagsSlides(slide, slide1);
+            int restSlide = slide.getNumOfTags() - common;
+            int restSlide1 = slide1.getNumOfTags() - common;
+            int interest = Math.min(restSlide, Math.min(common, restSlide1));
+
+            if (interest > maxInterest) {
+                bestPairSlide = slide1;
+                maxInterest = interest;
+            }
+
+        }
+
+        return bestPairSlide;
     }
 
 }

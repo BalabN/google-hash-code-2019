@@ -20,17 +20,34 @@ public class Main {
 
         List<Slide> slides = SlideshowGenerator.GetSlides(photos);
 
-        for (int i = 0; i < slides.size(); i++){
-            System.out.println("slide " + slides.get(i).id);
-            System.out.println("orientation " + slides.get(i).orientation);
-            if (slides.get(i).orientation == Photo.Orientation.HORIZONTAL){
-                System.out.println("photo1 " + slides.get(i).photo1.getId());
-            }else {
-                System.out.println("photo1 " + slides.get(i).photo1.getId());
-                System.out.println("photo2 " + slides.get(i).photo2.getId());
-            }
+        Slideshow slideshow = new Slideshow();
 
+        boolean finish = false;
+
+        Slide currentSlide = slides.get(0);
+        List<Slide> usedSlides = new ArrayList<>();
+        usedSlides.add(currentSlide);
+
+        List<Slide> slideshowTest = new ArrayList<>();
+        slideshowTest.add(currentSlide);
+        while (!finish) {
+            System.out.println("slides:" + slides.size());
+            System.out.println("usedSlides:" + usedSlides.size());
+            if (usedSlides.size() == slides.size())
+                break;
+            // for (int i = 0; i < slides.size(); i++){
+            Slide pair = SlideshowGenerator.GetBestSlidePair(currentSlide, slides, usedSlides);
+
+            System.out.println("ea");
+            usedSlides.add(pair);
+            slideshowTest.add(pair);
+            currentSlide = pair;
         }
+
+        System.out.println(ParseInput.printOutput(slideshowTest));
+
+        System.out.println("end");
+        // }
     }
 // go through all slides and search for best pairs for every image
 

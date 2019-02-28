@@ -1,6 +1,7 @@
 package models;
 
 import java.util.List;
+import java.util.Set;
 
 public class Slideshow {
 
@@ -11,8 +12,20 @@ public class Slideshow {
     }
 
     public long calculateScore() {
-        //TODO: calcute the score of the slideshow
-        return 0L;
+
+        int score = 0;
+        for (int i = 0; i < slideList.size()-1; i++) {
+
+            Slide slide1 = slideList.get(i);
+            Slide slide2 = slideList.get(i+1);
+            int tagSlideOne = slide1.getUniqueTags(slide2).size();
+            int tagSlideTwo = slide2.getUniqueTags(slide1).size();
+            int tagSlideCom = slide2.getCommonTags(slide1).size();
+
+            score+=Math.min(tagSlideOne,Math.min(tagSlideTwo,tagSlideCom));
+
+        }
+        return score;
     }
 
     public String toString() {

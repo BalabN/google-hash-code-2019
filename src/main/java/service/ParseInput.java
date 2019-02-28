@@ -3,7 +3,10 @@ package service;
 import models.Photo;
 import models.Slide;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -67,12 +70,14 @@ public class ParseInput {
 
         // JST DOBIM 1 SLIDE
         System.out.println("List of Slides" + slides);
-        for(int i = 0; i < slides.size(); i++){
+        for (int i = 0; i < slides.size(); i++) {
             Slide slide = slides.get(i);
             int numPhotos = slide.getPhotos().size();
-            for (int j = 0; j < numPhotos; j++) {
-                content = content.concat(String.valueOf(slide.getPhotos().get(j).getId()));
+            if (numPhotos == 1) {
+                content = content.concat(String.valueOf(slide.getPhotos()));
                 content = content.concat(" ");
+            } else {
+                content = content.concat("\n");
             }
             if (i != slides.size() - 1) {
                 content = content.concat("\n");
@@ -81,8 +86,45 @@ public class ParseInput {
         return content;
     }
 
+    public static void printOutput(List<Slide> slides, String filename) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(filename + ".out", "UTF-8");
+
+            String content = Integer.toString(slides.size());
+            content = content.concat("\n");
+
+            writer.print(slides.size());
+            writer.println();
+
+            for (int i = 0; i < slides.size(); i++) {
+                Slide slide = slides.get(i);
+                int numPhotos = slide.getPhotos().size();
+                for (int j = 0; j < numPhotos; j++) {
+                    content = content.concat(String.valueOf(slide.getPhotos().get(j).getId()));
+                    content = content.concat(" ");
+                    writer.print(content);
+                }
+                if (i != slides.size() - 1) {
+                    content = content.concat("\n");
+                    writer.println(content);
+                }
+
+
+                writer.close();
+            }
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            } catch(UnsupportedEncodingException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 
 
-}
+
+
+
+

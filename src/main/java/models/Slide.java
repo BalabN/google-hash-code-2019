@@ -67,7 +67,9 @@ public class Slide {
     public List<Photo> getPhotos() {
         List<Photo> photos = new ArrayList<>();
         photos.add(photo1);
-        photos.add(photo2);
+        if (photo2 != null) {
+            photos.add(photo2);
+        }
         return photos;
     }
 

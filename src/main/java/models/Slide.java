@@ -27,6 +27,12 @@ public class Slide {
     }
 
     public List<String> getTags() {
+        if (photo2 == null) {
+            return photo1.getTags();
+        }
+
+        tags = photo1.getTags();
+        tags.addAll(photo2.getTags());
         return tags;
     }
 
@@ -56,6 +62,13 @@ public class Slide {
 
     public void setPhoto2(Photo photo2) {
         this.photo2 = photo2;
+    }
+
+    public List<Photo> getPhotos() {
+        List<Photo> photos = new ArrayList<>();
+        photos.add(photo1);
+        photos.add(photo2);
+        return photos;
     }
 
     public Photo.Orientation getOrientation() {

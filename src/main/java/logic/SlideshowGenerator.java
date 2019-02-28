@@ -36,7 +36,6 @@ public class SlideshowGenerator {
                 int together = photo.getTags().size() + bestPair.getTags().size() - common;
                 System.out.println("together: " + together);
                 slide = new Slide(slideId, photo,bestPair);
-                slide.setTags(photo.getTags());
                 slide.setNumOfTags(photo.getNumOfTags());
                 slideId++;
                 usedPhotos.add(bestPair);
@@ -67,9 +66,7 @@ public class SlideshowGenerator {
     public static int GetCommonTagsSlides(Slide slide1, Slide slide2) {
         int commonTags = 0;
         for (int i = 0; i < slide1.getTags().size(); i++) {
-            //System.out.println("1:" + photo1.getTags().get(i));
             for (int j = 0; j < slide2.getTags().size(); j++) {
-                //System.out.println("2:" + photo2.getTags().get(j));
                 if (slide1.getTags().get(i).compareTo(slide2.getTags().get(j)) == 0) {
                     System.out.println("common");
                     commonTags++;

@@ -8,27 +8,36 @@ import java.util.List;
 
 public class SlideshowGenerator {
 
-    public static List<Slide> GetSlies(List<Photo> photos) {//parse
+    public static List<Slide> GetSlides(List<Photo> photos) {//parse
         // go through all vertical photos and make pairs with most different tags together
         // add them as slides
-
+        List<Photo> usedPhotos = new ArrayList<>();
         List<Slide> slides = new ArrayList<>();
         Slide slide;
         Photo photo;
+        int slideId = 0;
         for (int i = 0; i < photos.size(); i++) {
+
             photo = photos.get(i);
+            if (usedPhotos.contains(photo))
+                continue;
+            System.out.println(photo.getId());
             if (photo.getOrientation() == Photo.Orientation.HORIZONTAL) {
-                slide = new Slide(/*photo*/);
+                slide = new Slide(slideId, photo);
+                slideId++;
             } else {
                 //find most different pair to this vertical
                 // minimal common, max together
-                Photo bestPair = GetBestVerticalPair(photo, photos);
+                Photo bestPair = GetBestVerticalPair(photo, photos, usedPhotos,true); // boolean leastCommon if true search for least common else most common
 
                 int common = GetCommonTags(photo, bestPair);
                 int together = photo.getTags().size() + bestPair.getTags().size() - common;
                 System.out.println("together: " + together);
-                slide = new Slide(/*photo*/);
+                slide = new Slide(slideId, photo,bestPair);
+                slideId++;
+                usedPhotos.add(bestPair);
             }
+            usedPhotos.add(photo);
             slides.add(slide);
         }
         return slides;
@@ -51,18 +60,29 @@ public class SlideshowGenerator {
         return commonTags;
     }
 
-    public static Photo GetBestVerticalPair(Photo photo,  List<Photo> photos) {
+    public static Photo GetBestVerticalPair(Photo photo,  List<Photo> photos, List<Photo>usedPhotos, boolean leastCommon) {
         int maxtogether = 0;
+        int maxCommon = 0;
         Photo bestPairPhoto = new Photo();
         for (Photo photo1 : photos) {
+            if (usedPhotos.contains(photo))
+                continue;
             if (photo1.getOrientation() == Photo.Orientation.VERTICAL) {
 
                 int common = GetCommonTags(photo, photo1);
                 int together = photo.getTags().size() + photo1.getTags().size() - common;
 
-                if (together > maxtogether) {
-                    bestPairPhoto = photo1;
-                    maxtogether = together;
+                if (leastCommon){
+                    if (together > maxtogether) {
+                        bestPairPhoto = photo1;
+                        maxtogether = together;
+                    }
+                }
+                else {
+                    if (common > maxCommon) {
+                        bestPairPhoto = photo1;
+                        maxCommon = common;
+                    }
                 }
 
                 System.out.println("common: " + common);

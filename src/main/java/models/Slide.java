@@ -5,14 +5,22 @@ import java.util.List;
 
 public class Slide {
 
-    private List photos;
+    public int id;
+    public Photo photo1;
+    public Photo photo2;
+    public Photo.Orientation orientation;
 
-    public List getPhotos(){
-        return photos;
+    public Slide(int _id, Photo _photo1){
+        id =_id;
+        orientation = Photo.Orientation.HORIZONTAL;
+        photo1 = _photo1;
+        photo2 = null;
     }
-    public void setPhotos(List photos){
-        this.photos = photos;
+
+    public Slide(int _id, Photo _photo1, Photo _photo2){
+        id =_id;
+        orientation = Photo.Orientation.VERTICAL;
+        photo1 = _photo1;
+        photo2 = _photo2;
     }
-
-
 }

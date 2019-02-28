@@ -4,11 +4,16 @@ import java.util.List;
 
 public class Photo {
 
+    enum Orientation {
+        VERTICAL,
+        HORIZONTAL
+    }
+
     private int id;
-    private int orientation;
+    private Orientation orientation;
     private List tags;
 
-    public int getOrientation(){
+    public Orientation getOrientation(){
         return orientation;
     }
 
@@ -28,7 +33,7 @@ public class Photo {
         this.id = id;
     }
 
-    public void setOrientation(int orientation){
+    public void setOrientation(Orientation orientation){
         this.orientation = orientation;
     }
 }

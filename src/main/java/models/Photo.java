@@ -12,11 +12,11 @@ public class Photo {
         return orientation;
     }
 
-    public int id(){
+    public int getId(){
         return id;
     }
 
-    public List tags (){
+    public List getTags (){
         return tags;
     }
 

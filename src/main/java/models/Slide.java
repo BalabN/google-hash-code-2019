@@ -1,21 +1,27 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Slide {
 
-    public class Person {
-        private String name; // private = restricted access
+    private List photos;
+    private ArrayList combTags;
 
-        // Getter
-        public String getName() {
-            return name;
-        }
-
-        // Setter
-        public void setName(String newName) {
-            this.name = newName;
-        }
+    public List getPhotos(){
+        return photos;
+    }
+    public ArrayList getCombTags(){
+        return combTags;
     }
 
+    public void setCombTags(ArrayList combTags){
+        this.combTags = combTags;
+    }
+
+    public void setPhotos(List photos){
+        this.photos = photos;
+    }
 
 
 }

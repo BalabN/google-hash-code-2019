@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Photo {
@@ -42,7 +43,7 @@ public class Photo {
     public boolean addTag(String tag) {
         return this.tags.add(tag);
     }
-    
+
     @Override
     public String toString() {
         return Long.toString(id);
@@ -78,5 +79,10 @@ public class Photo {
             }
         }
         return currentMaximumCommonTagCount;
+    }
+
+    @Override
+    public Photo clone() {
+        return new Photo(this.id, this.orientation, new HashSet<>(this.tags));
     }
 }

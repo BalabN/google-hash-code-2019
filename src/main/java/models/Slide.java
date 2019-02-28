@@ -9,14 +9,7 @@ public class Slide {
 
     private List<Photo> photoList;
     private Set<String> tags;
-
-    public Slide(List<Photo> photoList) {
-        this.photoList = photoList;
-        this.tags = new HashSet<>();
-        for(Photo photo : photoList) {
-            this.tags.addAll(photo.getTags());
-        }
-    }
+    private boolean orientation;
 
     public Slide(Photo photo1, Photo photo2) {
         this.photoList = new ArrayList<>();
@@ -25,12 +18,14 @@ public class Slide {
         this.tags = new HashSet<>();
         tags.addAll(photo1.getTags());
         tags.addAll(photo2.getTags());
+        orientation = false;
     }
 
     public Slide(Photo photo) {
         this.photoList = new ArrayList<>();
         photoList.add(photo);
         this.tags = new HashSet<>(photo.getTags());
+        orientation = false;
     }
 
     public String toString() {
@@ -76,5 +71,22 @@ public class Slide {
 
     public void setTags(Set<String> tags) {
         this.tags = tags;
+    }
+
+    public boolean isOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(boolean orientation) {
+        this.orientation = orientation;
+    }
+
+    @Override
+    public Slide clone() {
+        if(this.orientation) {
+            return new Slide(this.photoList.get(0));
+        } else {
+            return new Slide(this.photoList.get(0), this.photoList.get(1));
+        }
     }
 }

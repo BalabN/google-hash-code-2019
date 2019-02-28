@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,5 +35,13 @@ public class Slideshow {
             toString.append(slide.toString()).append("\n");
         }
         return toString.toString();
+    }
+
+    public Slideshow clone() {
+        List<Slide> slides = new ArrayList<>();
+        for(Slide slide : this.slideList) {
+            slides.add(slide.clone());
+        }
+        return new Slideshow(slides);
     }
 }

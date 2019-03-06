@@ -9,6 +9,16 @@ public class Photo {
         HORIZONTAL
     }
 
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "id=" + id +
+                ", orientation=" + orientation +
+                ", tags=" + tags +
+                ", numOfTags=" + numOfTags +
+                '}';
+    }
+
     private int id;
     private Orientation orientation;
     private List<String> tags;

@@ -13,7 +13,19 @@ public class Main {
         }
         String fileName = args[0];
 
+        String [] inputs = {"a_example", "b_lovely_landscapes"};
+        for(String in: inputs){
+            String fileName2 = "C:\\Users\\Lenovo\\Documents\\google-hash-code-2019\\" + in;
+            ParseInput parseInput = new ParseInput(fileName2);
+            System.out.println("For stavek Konec main" + fileName2);
+            parseInput.inputParser();
+        }
+
+
         List<Photo> photos = ParseInput.parseInput(fileName);
+
+
+        System.out.println("fileName args" + fileName);
         List<Photo> usedPhotos = new ArrayList<>();
 
         System.out.println(photos.size());

@@ -36,7 +36,7 @@ public class ParseInput {
             String line = bufferedReader.readLine();
 
             while( (line = bufferedReader.readLine() ) != null) {
-                System.out.printf(line.concat("\n"));
+//                System.out.printf(line.concat("\n"));
                 result.add(line.concat("\n"));
             }
             //result je pr men content!!!!
@@ -74,7 +74,7 @@ public class ParseInput {
                 gallery.add(photo);
                 id++;
 
-                System.out.println("gallery " + gallery);
+//                System.out.println("gallery " + gallery);
                 return gallery;
             }
 
@@ -134,7 +134,6 @@ public class ParseInput {
 
     public static String printOutput(List<Slide> slides) throws IOException {
 
-        TypeTester t = new TypeTester();
 
         File file = new File("C:\\Users\\Lenovo\\Documents\\google-hash-code-2019\\aTry2.txt");
 
@@ -163,7 +162,6 @@ public class ParseInput {
             }
         }
         writer.write(content);
-        System.out.println("content nakoncu je " + content);
         writer.close();
         return content;
     }

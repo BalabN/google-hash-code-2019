@@ -12,17 +12,21 @@ public class Main {
             throw new Exception("Invalid number of input args");
         }
         String fileName = args[0];
+        List<Photo> photos = new ArrayList<>();
 
-        String [] inputs = {"a_example", "b_lovely_landscapes"};
+        String [] inputs = {"b_lovely_landscapes"};
         for(String in: inputs){
             String fileName2 = "C:\\Users\\Lenovo\\Documents\\google-hash-code-2019\\" + in;
             ParseInput parseInput = new ParseInput(fileName2);
             System.out.println("For stavek Konec main" + fileName2);
-            parseInput.inputParser();
+            photos = parseInput.inputParser();
+
+//            System.out.println("rezultat od input parserja tvojga " + parseInput.inputParser());
         }
+        System.out.println("photos " + photos.toString());
 
 
-        List<Photo> photos = ParseInput.parseInput(fileName);
+//        List<Photo> photos = ParseInput.parseInput(fileName);
 
 
         System.out.println("fileName args" + fileName);
@@ -55,7 +59,9 @@ public class Main {
             currentSlide = pair;
         }
 
-        System.out.println(ParseInput.printOutput(slideshowTest));
+
+        ParseInput.printOut(slideshowTest, "bOut_Test2");
+
 
         // }
     }

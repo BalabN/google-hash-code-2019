@@ -27,56 +27,49 @@ public class ParseInput {
         BufferedReader bufferedReader = null;
 
         try{
-            // nastavimo buffered reader na konstrukt od file Nama
             bufferedReader = new BufferedReader(new FileReader(this.fileName + ".txt"), buffersize);
             List<String> result = new ArrayList<>();
-            int id = 0;
-
-            // stem dobim prvo linijo
-            String line = bufferedReader.readLine();
-
-            while( (line = bufferedReader.readLine() ) != null) {
-//                System.out.printf(line.concat("\n"));
-                result.add(line.concat("\n"));
-            }
-            //result je pr men content!!!!
-            String[] firstLine = result.get(0).split(" ");
-//            System.out.println("firstLine je " + firstLine);
-
-//            System.out.println("result je " + result.get(0));
+            int id = -1;
 
             List<Photo> gallery = new ArrayList<>();
-            Iterator<String> iterator = result.iterator();
-            iterator.hasNext();
+            String line = bufferedReader.readLine();
 
-            for(int i = 0; iterator.hasNext(); i++){
-                String line3 = iterator.next();
-                String[] line3Traits = line3.split(" ");
+
+            while( (line = bufferedReader.readLine() ) != null) {
                 Photo photo = new Photo();
-                List<String> photoTraits = new ArrayList<>();
+                List<String> tags = new ArrayList<>();
+                String[] lines = line.split(" ", 4);
+                id++;
 
-                for(int j = 0; j < line3Traits.length; j++){
-                    if(j == 0){
-                        if(line3Traits[j].toLowerCase().equals("h")){
+                if (lines.length != 4) { // Not enough tokens (e.g., empty line) read
+                    continue;
+                }
+//                System.out.println("linije" + Arrays.toString(lines));
+                for(int i = 0; i <lines.length; i++){
+                    if(i == 0){
+                        if(lines[0].toLowerCase().equals("h")){
                             photo.setOrientation(Photo.Orientation.HORIZONTAL);
                         } else {
                             photo.setOrientation(Photo.Orientation.VERTICAL);
                         }
-                    } else if (j == 1){
-                            photo.setNumOfTags(Integer.parseInt(line3Traits[j]));
+                    } else if(i == 1){
+                        photo.setNumOfTags(Integer.parseInt(lines[1]));
                     } else {
-                        photoTraits.add(line3Traits[j]);
+                        tags.add(lines[i]);
                     }
-
                 }
-                photo.setTags(photoTraits);
-                photo.setId(id);
-                gallery.add(photo);
-                id++;
 
-//                System.out.println("gallery " + gallery);
-                return gallery;
+                System.out.println("id je " + id);
+                photo.setId(id);
+                photo.setTags(tags);
+                gallery.add(photo);
+
+//                System.out.println("Line 54: " + gallery.toString());
+//                System.out.println("Line 55: " + gallery.size());
             }
+            return gallery;
+
+// System.out.println("Line xx: ");
 
         } catch (IOException e){
             e.printStackTrace();
@@ -132,38 +125,50 @@ public class ParseInput {
         return photos;
     }
 
-    public static String printOutput(List<Slide> slides) throws IOException {
+    public static String printOut(List<Slide> slides, String fileName) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter( fileName + ".out", "UTF-8");
 
+            System.out.println("printOut number of slides" + slides.size());
 
-        File file = new File("C:\\Users\\Lenovo\\Documents\\google-hash-code-2019\\aTry2.txt");
+            int numOfSlides = slides.size();
+            String content = Integer.toString(numOfSlides);
+            writer.print(content);
+            writer.println();
 
-        // creates the file
-        file.createNewFile();
+            for(int i = 0; i < numOfSlides; i++){
+                Slide slide = slides.get(i);
+                int numOfPhotos = slide.getPhotos().size();
+//                System.out.println("output slides are" + slide.toString());
+                for(int j = 0; j< numOfPhotos; j++){
+                    if(slide.getPhotos().size() == 2){
+                        content = String.valueOf(slide.getPhotos().get(j).getId()).concat(" ");
+                        writer.print(content);
+                    } else{
+                        content = String.valueOf(slide.getPhotos().get(j).getId());
+                        writer.print(content);
+                        writer.println();
+                    }
 
-        // creates a FileWriter Object
-        FileWriter writer = new FileWriter(file);
+                    System.out.println("content je " + content);
+                }
 
-
-        String content = Integer.toString(slides.size());
-       // content = content.concat("\n");
-        writer.write(" ");
-
-
-
-        for(int i = 0; i < slides.size(); i++){
-            Slide slide = slides.get(i);
-            int numPhotos = slide.getPhotos().size();
-            for (int j = 0; j < numPhotos; j++) {
-                content = content.concat(String.valueOf(slide.getPhotos().get(j).getId()));
-                content = content.concat(" ");
             }
-            if (i != slides.size() - 1) {
-                content = content.concat("\n");
-            }
+
+            writer.close();
+
+
+
+
+
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
         }
-        writer.write(content);
-        writer.close();
-        return content;
+        return "";
     }
 
 }

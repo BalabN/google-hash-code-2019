@@ -12,7 +12,19 @@ public class Slide {
 
     private int numOfTags;
 
+
     public Slide(){}
+
+    @Override
+    public String toString() {
+        return "Slide{" +
+                "id=" + id +
+                ", photo1=" + photo1 +
+                ", photo2=" + photo2 +
+                ", orientation=" + orientation +
+                ", numOfTags=" + numOfTags +
+                '}';
+    }
 
     public Slide(int _id, Photo _photo1){
         id =_id;
